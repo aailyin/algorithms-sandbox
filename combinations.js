@@ -1,6 +1,7 @@
-(function (){
-    let input = [[1,2,3], [4,5], [6]];
+// input: array like this [[1,2,3], [4,5], [6]]
+// output: [[1,4,6], [1,5,6], [2,4,6], [2,5,6], [3,4,6], [3,5,6]] - all combinations of elements
 
+(function (){
     function getElements(arr) {
         let output = [];
 
@@ -26,6 +27,6 @@
 
         return output.map(str => str.split(','));
     }
-
-    console.log(output);
+    
+    console.log(getElements([[1,2,3], [4,5], [6]]));
 })();
