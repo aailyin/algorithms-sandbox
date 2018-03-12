@@ -82,6 +82,8 @@ var restoreIpAddresses = function(str) {
     const result = [];
         const length = str.length;
         
+        // Use recursive function because the result can be calculated as a tree where the initial
+        // parameter is the first element of string
         check(0, 0, '');
 
         function check(start, level, previous){
@@ -90,6 +92,7 @@ var restoreIpAddresses = function(str) {
 
             if (level === 3) {
                 num = str.substring(start);
+                // if it's the last group and it isn't '0' then stop checking
                 if (num[0] == '0' && num.length > 1) {
                     return;
                 }
@@ -100,9 +103,11 @@ var restoreIpAddresses = function(str) {
             }
             num = str.substring(start, start + 1);
             if (parseInt(num, 10) == 0) {
+                // decompose the tree for the next group because this group is '0'
                 check(start + 1, level + 1, level === 0 ? `${num}`: `${previous}.${num}`);
             } else {
                 while (num.length < 4 && num < 256 && start + i + 1 < length) {
+                    // decompose the tree for the other groups
                     check(start + i + 1, level + 1, level === 0 ? `${num}`: `${previous}.${num}`);
                     i++;
                     num = str.substring(start, start + i + 1);
