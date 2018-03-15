@@ -117,3 +117,51 @@ var restoreIpAddresses = function(str) {
 
         return result;
 };
+
+/* https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+    Given a sorted array, remove the duplicates in-place such that each element appear only once
+    and return the new length. Do not allocate extra space for another array, you must do this by 
+    modifying the input array in-place with O(1) extra memory.
+*/
+// My solution:
+var removeDuplicates = function(nums) {
+    var sum = 0;
+    var j, k;
+    var current = nums[nums.length - 1];
+    
+    for (var i = nums.length - 1; i >= 0; i--) { 
+        if (nums[i] === current && i != 0) {
+            sum++;
+        } else {
+            if (i === 0 && nums[i] === current) {
+                sum++;                
+            }
+            if (sum > 1) {
+                j = sum - 1;
+                k = 1;
+                while (i + j + 1 <= nums.length) {
+                    nums[i + k] = nums[i + j + 1];
+                    j++;
+                    k++;
+                }
+                nums.length = nums.length - (sum - 1); 
+            }
+            current = nums[i];
+            sum = 1;
+        }
+    }
+    return nums.length;
+};
+
+// If to read the task more carefully, then you'll understand that we don't need to modify
+// array and the solution may be like this:
+var removeDuplicates = function(nums) {
+    var a = 0;
+    for (var i=1; i < nums.length; i++) {
+        if (nums[a] != nums[i]) {
+            a++; 
+            nums[a] = nums[i];
+        }
+    }
+    return a+1;
+};
