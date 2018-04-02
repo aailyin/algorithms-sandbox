@@ -165,3 +165,63 @@ var removeDuplicates = function(nums) {
     }
     return a+1;
 };
+
+
+// https://leetcode.com/problems/merge-sorted-array/
+// Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+//
+// Note:
+// You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold 
+// additional elements from nums2. The number of elements initialized in nums1 and nums2 are m and n respectively.
+
+// My solution:
+var merge = function (nums1, m, nums2, n) {
+    var i = 0, j = 0, k = 0, temp, prev, length;
+    
+    nums1.length = m;
+    
+    while (j < n) {
+        if (i < nums1.length) {
+             while (nums1[i] < nums2[j]) {
+                i++;
+             }
+             if (i < nums1.length) {
+                 k = i;
+                 prev = nums1[k];
+                 nums1[i] = nums2[j];
+                 k++;
+                 length = nums1.length + 1;
+                 while (k < length) {
+                     temp = nums1[k];
+                     nums1[k] = prev;
+                     prev = temp;
+                     k++;
+                 }
+             } else {
+                 nums1.push(nums2[j]);
+             }
+        } else {
+            nums1.push(nums2[j]);
+        }
+        j++;
+    }
+};
+
+// good practice from submissions
+var merge = function(nums1, m, nums2, n) {
+    var i=m-1;
+    var j=n-1;
+    var k= m+n-1;
+    while(i>=0 && j>=0){
+        if(nums1[i]>nums2[j]){
+            nums1[k--] = nums1[i--];
+        }else{
+            nums1[k--] = nums2[j--];
+        }
+    }
+    while(j>=0){
+        nums1[k--] = nums2[j--];
+    }
+};
+
+
