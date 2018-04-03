@@ -224,4 +224,42 @@ var merge = function(nums1, m, nums2, n) {
     }
 };
 
+// https://leetcode.com/problems/maximum-subarray/description/
+// Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
 
+// For example, given the array [-2,1,-3,4,-1,2,1,-5,4],
+// the contiguous subarray [4,-1,2,1] has the largest sum = 6.
+
+// My first solution:
+var maxSubArray = function(nums) {
+    let N = nums.length;
+    
+    if (N === 1) {
+        return nums[0];
+    }
+
+    let max = Number.NEGATIVE_INFINITY;
+    let i = 0, j = 0, k = 0, sum;
+    
+    while (j < N) {
+        for (i = 0; i <= N - j - 1; i++) {
+            sum = getSum(i, i + j + 1);
+            if (sum > max) {
+                max = sum;
+            }
+        }
+        j++;
+    }
+    
+    function getSum(from, to) {
+        let sum = 0;
+        for (let i = from; i < to; i++) {
+            sum += nums[i];
+        }
+        return sum;
+    }
+    return max;
+};
+
+// Result: Time Limit Exceeded
+// My solution 2:
