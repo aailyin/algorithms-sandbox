@@ -262,4 +262,4 @@ var maxSubArray = function(nums) {
 };
 
 // Result: Time Limit Exceeded
-// My solution 2:
+// Solution: https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/
