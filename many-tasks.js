@@ -263,3 +263,30 @@ var maxSubArray = function(nums) {
 
 // Result: Time Limit Exceeded
 // Solution: https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/
+// The fastest solution on leetcode:
+var maxSubArray = function(nums) {
+    if (nums.length === 0) return 0;
+       var currentSum = maxSum = nums[0];
+       for (var i = 1; i < nums.length; i++) {
+           currentSum = Math.max (currentSum + nums[i], nums[i]);
+           maxSum = Math.max(currentSum, maxSum);
+       }
+     return maxSum;
+};
+
+// My solution based on Kumar's algorithm
+var maxSubArray = function(nums) {
+    var max = nums[0], max_now = nums[0];
+    var length = nums.length;
+    
+    for(var i = 1; i < length; i++) {
+        max_now += nums[i];
+        if (max_now < nums[i]) {
+            max_now = nums[i];
+        }
+        if (max < max_now) {
+            max = max_now;
+        }
+    }
+    return max;
+};
